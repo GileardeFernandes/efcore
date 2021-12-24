@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EFCore.Migrations
 {
-    public partial class PrimeiraMigracao : Migration
+    public partial class MigrationInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,13 +12,13 @@ namespace EFCore.Migrations
                 name: "Cliente",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Nome = table.Column<string>(type: "VARCHAR(80)", nullable: false),
                     Telefone = table.Column<string>(type: "CHAR(11)", nullable: true),
                     CEP = table.Column<string>(type: "CHAR(8)", nullable: false),
                     Estado = table.Column<string>(type: "CHAR(2)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                    Cidade = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,13 +29,13 @@ namespace EFCore.Migrations
                 name: "Produto",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CodigoBarras = table.Column<string>(type: "VARCHAR(14)", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(60)", nullable: true),
-                    valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TipoProduto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                    valor = table.Column<decimal>(type: "numeric", nullable: false),
+                    TipoProduto = table.Column<string>(type: "text", nullable: false),
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,13 +46,13 @@ namespace EFCore.Migrations
                 name: "Pedido",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteID = table.Column<int>(type: "int", nullable: false),
-                    IniciadoEm = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    FinalizadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TipoFrete = table.Column<int>(type: "int", nullable: false),
-                    StatusPedido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ClienteID = table.Column<int>(type: "integer", nullable: false),
+                    IniciadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    FinalizadoEm = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TipoFrete = table.Column<int>(type: "integer", nullable: false),
+                    StatusPedido = table.Column<string>(type: "text", nullable: false),
                     Observacao = table.Column<string>(type: "VARCHAR(512)", nullable: true)
                 },
                 constraints: table =>
@@ -69,14 +70,14 @@ namespace EFCore.Migrations
                 name: "PedidoItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PedidoId = table.Column<int>(type: "int", nullable: false),
-                    ProdutoId = table.Column<int>(type: "int", nullable: false),
-                    Quantidade = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Desconto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PedidoItemId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PedidoId = table.Column<int>(type: "integer", nullable: false),
+                    ProdutoId = table.Column<int>(type: "integer", nullable: false),
+                    Quantidade = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    Valor = table.Column<decimal>(type: "numeric", nullable: false),
+                    Desconto = table.Column<decimal>(type: "numeric", nullable: false),
+                    PedidoItemId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

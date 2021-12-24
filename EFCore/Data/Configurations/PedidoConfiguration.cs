@@ -10,7 +10,7 @@ namespace EFCore.Data.Configurations
         {
             builder.ToTable("Pedido");
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.IniciadoEm).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+            builder.Property(p => p.IniciadoEm);
             builder.Property(P => P.StatusPedido).HasConversion<string>();
             builder.Property(p => p.TipoFrete).HasConversion<int>();
             builder.Property(p => p.Observacao).HasColumnType("VARCHAR(512)");
